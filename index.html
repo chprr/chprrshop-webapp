@@ -27,6 +27,7 @@
         .card-box { background: linear-gradient(135deg, #3390ec, #1c73c4); color: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 10px rgba(51, 144, 236, 0.3); }
         .card-number { font-size: 22px; font-family: monospace; letter-spacing: 2px; margin: 15px 0; font-weight: bold; }
         .error-msg { color: #e53935; font-size: 14px; margin-top: -15px; margin-bottom: 15px; display: none; }
+        .commission-alert { color: #e53935; font-size: 14px; font-weight: bold; text-align: center; margin-bottom: 15px; background: rgba(229, 57, 53, 0.1); padding: 10px; border-radius: 8px; }
     </style>
 </head>
 <body>
@@ -73,7 +74,7 @@
         <button class="btn btn-secondary" onclick="switchView('view-catalog')">🔙 Скасувати</button>
     </div>
 
-    <!-- ЕКРАН 4: ОПЛАТА (НОВИЙ) -->
+    <!-- ЕКРАН 4: ОПЛАТА -->
     <div id="view-payment" class="view">
         <div class="header"><h1>💳 Оплата</h1></div>
         <div class="summary-box">
@@ -88,6 +89,11 @@
             <div style="font-size: 14px; opacity: 0.8;">chprrshop</div>
         </div>
 
+        <!-- НОВЕ ПОПЕРЕДЖЕННЯ ПРО КОМІСІЮ -->
+        <div class="commission-alert">
+            ⚠️ Увага: комісію за переказ сплачує покупець!
+        </div>
+
         <p style="font-size: 13px; text-align: center; color: var(--tg-theme-hint-color, #888);">Оплатіть у своєму банку, а потім натисніть кнопку нижче, щоб надіслати нам скріншот чека.</p>
         
         <button class="btn" onclick="submitFinalOrder()">✅ Я оплатив (Надіслати чек)</button>
@@ -99,10 +105,8 @@
         tg.expand();
         tg.ready();
 
-        // Отримуємо динамічний номер картки від бота через URL
         const urlParams = new URLSearchParams(window.location.search);
         let dynamicCard = urlParams.get('card') || "4874070058616069";
-        // Робимо пробіли кожні 4 цифри для краси
         dynamicCard = dynamicCard.replace(/(.{4})/g, '$1 ').trim();
         document.getElementById('card-number-display').innerText = dynamicCard;
 
@@ -141,7 +145,6 @@
             document.getElementById('username-error').style.display = 'none';
             order.username = uname;
             
-            // Заповнюємо фінальний екран
             document.getElementById('pay-item').innerText = order.label;
             document.getElementById('pay-price').innerText = order.price;
             document.getElementById('pay-user').innerText = `@${order.username}`;
@@ -149,7 +152,6 @@
         }
 
         function submitFinalOrder() {
-            // Відправляємо дані в бота
             tg.sendData(JSON.stringify(order));
         }
     </script>
