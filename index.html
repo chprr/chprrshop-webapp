@@ -1,156 +1,97 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>chprrshop</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        body {
-            font-family: var(--tg-theme-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif);
-            background-color: var(--tg-theme-bg-color, #ffffff);
-            color: var(--tg-theme-text-color, #000000);
-            margin: 0;
-            padding: 16px;
-            box-sizing: border-box;
-            padding-bottom: 40px;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 24px;
-            margin-top: 10px;
-        }
-        .header h1 {
-            margin: 0;
-            font-size: 26px;
-            color: var(--tg-theme-text-color);
-        }
-        .header p {
-            margin: 5px 0 0;
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #999999);
-        }
-        .links-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-bottom: 24px;
-        }
-        .link-btn {
-            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
-            color: var(--tg-theme-text-color, #000);
-            text-decoration: none;
-            text-align: center;
-            padding: 14px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: opacity 0.2s;
-        }
-        .link-btn:active {
-            opacity: 0.7;
-        }
-        .section-title {
-            font-size: 19px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            margin-top: 30px;
-            color: var(--tg-theme-text-color);
-        }
-        .product-card {
-            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: transform 0.1s;
-        }
-        .product-card:active {
-            transform: scale(0.98);
-        }
-        .product-info strong {
-            display: block;
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
-        .product-info span {
-            font-size: 14px;
-            color: var(--tg-theme-hint-color, #888888);
-        }
-        .buy-btn {
-            background-color: var(--tg-theme-button-color, #3390ec);
-            color: var(--tg-theme-button-text-color, #ffffff);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        body { font-family: var(--tg-theme-font-family, sans-serif); background-color: var(--tg-theme-bg-color, #ffffff); color: var(--tg-theme-text-color, #000000); margin: 0; padding: 16px; box-sizing: border-box; padding-bottom: 40px; }
+        .header { text-align: center; margin-bottom: 24px; margin-top: 10px; }
+        .header h1 { margin: 0; font-size: 26px; }
+        .header p { margin: 5px 0 0; font-size: 14px; color: var(--tg-theme-hint-color, #999999); }
+        .view { display: none; }
+        .view.active { display: block; }
+        .links-grid { display: grid; gap: 10px; margin-bottom: 24px; }
+        .link-btn { background-color: var(--tg-theme-secondary-bg-color, #f0f0f0); color: var(--tg-theme-text-color, #000); text-decoration: none; text-align: center; padding: 14px; border-radius: 12px; font-weight: 600; font-size: 15px; }
+        .section-title { font-size: 19px; font-weight: bold; margin: 30px 0 12px; }
+        .product-card { background-color: var(--tg-theme-secondary-bg-color, #f0f0f0); border-radius: 12px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+        .product-info strong { display: block; font-size: 16px; margin-bottom: 4px; }
+        .product-info span { font-size: 14px; color: var(--tg-theme-hint-color, #888); }
+        .btn { background-color: var(--tg-theme-button-color, #3390ec); color: var(--tg-theme-button-text-color, #fff); border: none; padding: 12px; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 10px;}
+        .buy-btn { width: auto; padding: 10px 18px; margin-top: 0; }
+        .btn-secondary { background-color: transparent; color: var(--tg-theme-hint-color, #888); margin-top: 5px; }
+        .input-field { width: 100%; padding: 14px; margin: 10px 0 20px; border: 1px solid var(--tg-theme-hint-color, #ccc); border-radius: 10px; font-size: 16px; background-color: var(--tg-theme-bg-color, #fff); color: var(--tg-theme-text-color, #000); box-sizing: border-box;}
+        .input-field:focus { outline: none; border-color: var(--tg-theme-button-color, #3390ec); }
+        .summary-box { background-color: var(--tg-theme-secondary-bg-color, #f0f0f0); border-radius: 12px; padding: 16px; margin-bottom: 20px; font-size: 16px; line-height: 1.6; }
+        .card-box { background: linear-gradient(135deg, #3390ec, #1c73c4); color: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; text-align: center; box-shadow: 0 4px 10px rgba(51, 144, 236, 0.3); }
+        .card-number { font-size: 22px; font-family: monospace; letter-spacing: 2px; margin: 15px 0; font-weight: bold; }
+        .error-msg { color: #e53935; font-size: 14px; margin-top: -15px; margin-bottom: 15px; display: none; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>🏪 chprrshop</h1>
-        <p>Швидка покупка Stars та Premium</p>
+    <!-- ЕКРАН 1: КАТАЛОГ -->
+    <div id="view-catalog" class="view active">
+        <div class="header"><h1>🏪 chprrshop</h1><p>Швидка покупка Stars та Premium</p></div>
+        <div class="links-grid">
+            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/chprrshop'); return false;">📢 Наш Телеграм канал</a>
+            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/otzivichprr'); return false;">💬 Відгуки покупців</a>
+            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/ysloviyapokupki'); return false;">📋 Умови покупки</a>
+        </div>
+        <div class="section-title">⭐️ Telegram Stars</div>
+        <div class="product-card"><div class="product-info"><strong>50 Зірок</strong><span>40 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 50, 40, '50 Зірок')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>100 Зірок</strong><span>80 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 100, 80, '100 Зірок')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>200 Зірок</strong><span>160 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 200, 160, '200 Зірок')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>250 Зірок</strong><span>200 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 250, 200, '250 Зірок')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>500 Зірок</strong><span>400 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 500, 400, '500 Зірок')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>1000 Зірок</strong><span>800 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 1000, 800, '1000 Зірок')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>Ввести свою кількість</strong><span>Від 50 зірок (курс 0.8)</span></div><button class="btn buy-btn" onclick="switchView('view-custom-stars')">Обрати</button></div>
+        <div class="section-title">💎 Telegram Premium</div>
+        <div class="product-card"><div class="product-info"><strong>3 Місяці</strong><span>550 грн</span></div><button class="btn buy-btn" onclick="startOrder('premium', '3', 550, 'Premium 3 Місяці')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>6 Місяців</strong><span>740 грн</span></div><button class="btn buy-btn" onclick="startOrder('premium', '6', 740, 'Premium 6 Місяців')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>1 Рік</strong><span>1290 грн</span></div><button class="btn buy-btn" onclick="startOrder('premium', '12', 1290, 'Premium 1 Рік')">Купити</button></div>
     </div>
 
-    <!-- Навигационные ссылки -->
-    <div class="links-grid">
-        <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/chprrshop'); return false;">📢 Наш Телеграм канал</a>
-        <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/otzivichprr'); return false;">💬 Відгуки покупців</a>
-        <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/ysloviyapokupki'); return false;">📋 Умови покупки</a>
+    <!-- ЕКРАН 2: КАСТОМНІ ЗІРКИ -->
+    <div id="view-custom-stars" class="view">
+        <div class="header"><h1>⭐️ Своя кількість</h1></div>
+        <p>Введіть бажану кількість зірок (мінімум 50). Вартість розрахується автоматично.</p>
+        <input type="number" id="custom-amount-input" class="input-field" placeholder="Наприклад: 150" inputmode="numeric">
+        <div id="custom-error" class="error-msg">Мінімальна кількість — 50 зірок.</div>
+        <button class="btn" onclick="processCustomStars()">Далі</button>
+        <button class="btn btn-secondary" onclick="switchView('view-catalog')">🔙 Назад</button>
     </div>
 
-    <div class="section-title">⭐️ Telegram Stars</div>
-    <div class="product-card">
-        <div class="product-info"><strong>50 Зірок</strong><span>40 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 50)">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>100 Зірок</strong><span>80 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 100)">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>200 Зірок</strong><span>160 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 200)">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>250 Зірок</strong><span>200 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 250)">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>500 Зірок</strong><span>400 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 500)">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>1000 Зірок</strong><span>800 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 1000)">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>Ввести свою кількість</strong><span>Від 50 зірок</span></div>
-        <button class="buy-btn" onclick="sendOrder('stars', 'custom')">Обрати</button>
+    <!-- ЕКРАН 3: ВВЕДЕННЯ ЮЗЕРНЕЙМУ -->
+    <div id="view-username" class="view">
+        <div class="header"><h1>👤 Отримувач</h1></div>
+        <p>Введіть <b>Telegram Username</b> на який потрібно надіслати товар.</p>
+        <input type="text" id="username-input" class="input-field" placeholder="Наприклад: durov">
+        <div id="username-error" class="error-msg">Некоректний юзернейм! Лише латиниця та цифри.</div>
+        <button class="btn" onclick="processUsername()">До оплати</button>
+        <button class="btn btn-secondary" onclick="switchView('view-catalog')">🔙 Скасувати</button>
     </div>
 
-    <div class="section-title">💎 Telegram Premium</div>
-    <div class="product-card">
-        <div class="product-info"><strong>3 Місяці</strong><span>550 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('premium', '3')">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>6 Місяців</strong><span>740 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('premium', '6')">Купити</button>
-    </div>
-    <div class="product-card">
-        <div class="product-info"><strong>1 Рік</strong><span>1290 грн</span></div>
-        <button class="buy-btn" onclick="sendOrder('premium', '12')">Купити</button>
+    <!-- ЕКРАН 4: ОПЛАТА (НОВИЙ) -->
+    <div id="view-payment" class="view">
+        <div class="header"><h1>💳 Оплата</h1></div>
+        <div class="summary-box">
+            📦 <b>Товар:</b> <span id="pay-item"></span><br>
+            👤 <b>Отримувач:</b> <span id="pay-user"></span>
+        </div>
+        <p style="text-align: center; margin-bottom: 10px;">Перекажіть рівно <b><span id="pay-price"></span> грн</b> на цю картку:</p>
+        
+        <div class="card-box">
+            <div style="font-size: 14px; opacity: 0.8;">Номер картки</div>
+            <div class="card-number" id="card-number-display">0000 0000 0000 0000</div>
+            <div style="font-size: 14px; opacity: 0.8;">chprrshop</div>
+        </div>
+
+        <p style="font-size: 13px; text-align: center; color: var(--tg-theme-hint-color, #888);">Оплатіть у своєму банку, а потім натисніть кнопку нижче, щоб надіслати нам скріншот чека.</p>
+        
+        <button class="btn" onclick="submitFinalOrder()">✅ Я оплатив (Надіслати чек)</button>
+        <button class="btn btn-secondary" onclick="switchView('view-username')">🔙 Змінити дані</button>
     </div>
 
     <script>
@@ -158,9 +99,58 @@
         tg.expand();
         tg.ready();
 
-        function sendOrder(type, value) {
-            const orderData = { action: type, value: value };
-            tg.sendData(JSON.stringify(orderData));
+        // Отримуємо динамічний номер картки від бота через URL
+        const urlParams = new URLSearchParams(window.location.search);
+        let dynamicCard = urlParams.get('card') || "4874070058616069";
+        // Робимо пробіли кожні 4 цифри для краси
+        dynamicCard = dynamicCard.replace(/(.{4})/g, '$1 ').trim();
+        document.getElementById('card-number-display').innerText = dynamicCard;
+
+        let order = { action: '', value: '', price: 0, label: '', username: '' };
+
+        function switchView(viewId) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+        }
+
+        function startOrder(action, value, price, label) {
+            order.action = action; order.value = value; order.price = price; order.label = label;
+            document.getElementById('username-input').value = '';
+            document.getElementById('username-error').style.display = 'none';
+            switchView('view-username');
+        }
+
+        function processCustomStars() {
+            const amount = parseInt(document.getElementById('custom-amount-input').value);
+            if (isNaN(amount) || amount < 50) {
+                document.getElementById('custom-error').style.display = 'block';
+                return;
+            }
+            document.getElementById('custom-error').style.display = 'none';
+            const price = Math.round((amount * 0.8) * 100) / 100;
+            startOrder('stars', amount, price, `${amount} Зірок`);
+        }
+
+        function processUsername() {
+            let uname = document.getElementById('username-input').value.trim().replace('@', '');
+            const regex = /^[a-zA-Z0-9_]+$/;
+            if (!regex.test(uname) || uname.length === 0) {
+                document.getElementById('username-error').style.display = 'block';
+                return;
+            }
+            document.getElementById('username-error').style.display = 'none';
+            order.username = uname;
+            
+            // Заповнюємо фінальний екран
+            document.getElementById('pay-item').innerText = order.label;
+            document.getElementById('pay-price').innerText = order.price;
+            document.getElementById('pay-user').innerText = `@${order.username}`;
+            switchView('view-payment');
+        }
+
+        function submitFinalOrder() {
+            // Відправляємо дані в бота
+            tg.sendData(JSON.stringify(order));
         }
     </script>
 </body>
