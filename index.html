@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>chprrshop</title>
+    <!-- Підключення бібліотеки Telegram Web App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: var(--tg-theme-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif);
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+            margin: 0;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: var(--tg-theme-text-color);
+        }
+        .header p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: var(--tg-theme-hint-color, #999999);
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 12px;
+            margin-top: 24px;
+            color: var(--tg-theme-text-color);
+        }
+        .product-card {
+            background-color: var(--tg-theme-secondary-bg-color, #f0f0f0);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.1s;
+        }
+        .product-card:active {
+            transform: scale(0.98);
+        }
+        .product-info strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+        .product-info span {
+            font-size: 14px;
+            color: var(--tg-theme-hint-color, #888888);
+        }
+        .buy-btn {
+            background-color: var(--tg-theme-button-color, #3390ec);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🏪 chprrshop</h1>
+        <p>Швидка покупка Stars та Premium</p>
+    </div>
+
+    <div class="section-title">⭐️ Telegram Stars</div>
+    <div class="product-card">
+        <div class="product-info">
+            <strong>50 Зірок</strong>
+            <span>40 грн</span>
+        </div>
+        <button class="buy-btn" onclick="sendOrder('stars', 50)">Купити</button>
+    </div>
+    <div class="product-card">
+        <div class="product-info">
+            <strong>100 Зірок</strong>
+            <span>80 грн</span>
+        </div>
+        <button class="buy-btn" onclick="sendOrder('stars', 100)">Купити</button>
+    </div>
+    <div class="product-card">
+        <div class="product-info">
+            <strong>Ввести свою кількість</strong>
+            <span>Від 50 зірок</span>
+        </div>
+        <button class="buy-btn" onclick="sendOrder('stars', 'custom')">Обрати</button>
+    </div>
+
+    <div class="section-title">💎 Telegram Premium</div>
+    <div class="product-card">
+        <div class="product-info">
+            <strong>3 Місяці</strong>
+            <span>550 грн</span>
+        </div>
+        <button class="buy-btn" onclick="sendOrder('premium', '3')">Купити</button>
+    </div>
+    <div class="product-card">
+        <div class="product-info">
+            <strong>1 Рік</strong>
+            <span>1290 грн</span>
+        </div>
+        <button class="buy-btn" onclick="sendOrder('premium', '12')">Купити</button>
+    </div>
+
+    <script>
+        // Ініціалізація Telegram Web App
+        const tg = window.Telegram.WebApp;
+        tg.expand(); // Відкриває додаток на весь екран
+        tg.ready();  // Сигнал для Telegram, що додаток завантажився
+
+        // Функція для відправки даних назад у бота
+        function sendOrder(type, value) {
+            const orderData = {
+                action: type,
+                value: value
+            };
+            // Перетворюємо об'єкт у рядок і відправляємо в бота, після чого WebApp закриється
+            tg.sendData(JSON.stringify(orderData));
+        }
+    </script>
+</body>
+</html>
