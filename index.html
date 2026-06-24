@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -7,6 +7,7 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         body { font-family: var(--tg-theme-font-family, sans-serif); background-color: var(--tg-theme-bg-color, #ffffff); color: var(--tg-theme-text-color, #000000); margin: 0; padding: 16px; box-sizing: border-box; padding-bottom: 40px; }
+        .lang-toggle { position: absolute; top: 16px; right: 16px; background: var(--tg-theme-secondary-bg-color, #f0f0f0); color: var(--tg-theme-text-color, #000); padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; border: 1px solid var(--tg-theme-hint-color, #ccc); }
         .header { text-align: center; margin-bottom: 24px; margin-top: 10px; }
         .header h1 { margin: 0; font-size: 26px; }
         .header p { margin: 5px 0 0; font-size: 14px; color: var(--tg-theme-hint-color, #999999); }
@@ -32,72 +33,72 @@
 </head>
 <body>
 
+    <div class="lang-toggle" onclick="toggleLanguage()">🌍 <span id="lang-indicator">RU</span></div>
+
     <!-- ЕКРАН 1: КАТАЛОГ -->
     <div id="view-catalog" class="view active">
-        <div class="header"><h1>🏪 chprrshop</h1><p>Швидка покупка Stars та Premium</p></div>
+        <div class="header"><h1>🏪 chprrshop</h1><p id="t_desc">Быстрая покупка Stars и Premium</p></div>
         <div class="links-grid">
-            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/chprrshop'); return false;">📢 Наш Телеграм канал</a>
-            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/otzivichprr'); return false;">💬 Відгуки покупців</a>
-            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/ysloviyapokupki'); return false;">📋 Умови покупки</a>
+            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/chprrshop'); return false;"><span id="t_btn_channel">📢 Наш Телеграм канал</span></a>
+            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/otzivichprr'); return false;"><span id="t_btn_reviews">💬 Отзывы покупателей</span></a>
+            <a class="link-btn" href="#" onclick="tg.openTelegramLink('https://t.me/ysloviyapokupki'); return false;"><span id="t_btn_terms">📋 Условия покупки</span></a>
         </div>
+        
         <div class="section-title">⭐️ Telegram Stars</div>
-        <div class="product-card"><div class="product-info"><strong>50 Зірок</strong><span>40 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 50, 40, '50 Зірок')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>100 Зірок</strong><span>80 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 100, 80, '100 Зірок')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>200 Зірок</strong><span>160 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 200, 160, '200 Зірок')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>250 Зірок</strong><span>200 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 250, 200, '250 Зірок')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>500 Зірок</strong><span>400 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 500, 400, '500 Зірок')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>1000 Зірок</strong><span>800 грн</span></div><button class="btn buy-btn" onclick="startOrder('stars', 1000, 800, '1000 Зірок')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>Ввести свою кількість</strong><span>Від 50 зірок (курс 0.8)</span></div><button class="btn buy-btn" onclick="switchView('view-custom-stars')">Обрати</button></div>
+        <div class="product-card"><div class="product-info"><strong>50 Зірок</strong><span>40 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('stars', 50, 40, '50 Зірок')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>100 Зірок</strong><span>80 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('stars', 100, 80, '100 Зірок')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>200 Зірок</strong><span>160 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('stars', 200, 160, '200 Зірок')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>250 Зірок</strong><span>200 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('stars', 250, 200, '250 Зірок')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>500 Зірок</strong><span>400 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('stars', 500, 400, '500 Зірок')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>1000 Зірок</strong><span>800 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('stars', 1000, 800, '1000 Зірок')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong id="t_custom_stars">Ввести свое количество</strong><span id="t_from_50">От 50 звезд (курс 0.8)</span></div><button class="btn buy-btn" id="t_choose" onclick="switchView('view-custom-stars')">Выбрать</button></div>
+        
         <div class="section-title">💎 Telegram Premium</div>
-        <div class="product-card"><div class="product-info"><strong>3 Місяці</strong><span>550 грн</span></div><button class="btn buy-btn" onclick="startOrder('premium', '3', 550, 'Premium 3 Місяці')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>6 Місяців</strong><span>740 грн</span></div><button class="btn buy-btn" onclick="startOrder('premium', '6', 740, 'Premium 6 Місяців')">Купити</button></div>
-        <div class="product-card"><div class="product-info"><strong>1 Рік</strong><span>1290 грн</span></div><button class="btn buy-btn" onclick="startOrder('premium', '12', 1290, 'Premium 1 Рік')">Купити</button></div>
+        <div class="product-card"><div class="product-info"><strong>3 Місяці</strong><span>550 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('premium', '3', 550, 'Premium 3 Місяці')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>6 Місяців</strong><span>740 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('premium', '6', 740, 'Premium 6 Місяців')">Купить</button></div>
+        <div class="product-card"><div class="product-info"><strong>1 Рік</strong><span>1290 грн</span></div><button class="btn buy-btn t_buy" onclick="startOrder('premium', '12', 1290, 'Premium 1 Рік')">Купить</button></div>
     </div>
 
     <!-- ЕКРАН 2: КАСТОМНІ ЗІРКИ -->
     <div id="view-custom-stars" class="view">
-        <div class="header"><h1>⭐️ Своя кількість</h1></div>
-        <p>Введіть бажану кількість зірок (мінімум 50). Вартість розрахується автоматично.</p>
-        <input type="number" id="custom-amount-input" class="input-field" placeholder="Наприклад: 150" inputmode="numeric">
-        <div id="custom-error" class="error-msg">Мінімальна кількість — 50 зірок.</div>
-        <button class="btn" onclick="processCustomStars()">Далі</button>
-        <button class="btn btn-secondary" onclick="switchView('view-catalog')">🔙 Назад</button>
+        <div class="header"><h1 id="t_custom_title">⭐️ Свое количество</h1></div>
+        <p id="t_custom_desc">Введите желаемое количество звезд (минимум 50). Стоимость рассчитается автоматически.</p>
+        <input type="number" id="custom-amount-input" class="input-field" placeholder="Например: 150" inputmode="numeric">
+        <div id="custom-error" class="error-msg t_err_min">Минимальное количество — 50 звезд.</div>
+        <button class="btn" id="t_btn_next" onclick="processCustomStars()">Далее</button>
+        <button class="btn btn-secondary t_btn_back" onclick="switchView('view-catalog')">🔙 Назад</button>
     </div>
 
     <!-- ЕКРАН 3: ВВЕДЕННЯ ЮЗЕРНЕЙМУ -->
     <div id="view-username" class="view">
-        <div class="header"><h1>👤 Отримувач</h1></div>
-        <p>Введіть <b>Telegram Username</b> на який потрібно надіслати товар.</p>
-        <input type="text" id="username-input" class="input-field" placeholder="Наприклад: durov">
-        <div id="username-error" class="error-msg">Некоректний юзернейм! Лише латиниця та цифри.</div>
-        <button class="btn" onclick="processUsername()">До оплати</button>
-        <button class="btn btn-secondary" onclick="switchView('view-catalog')">🔙 Скасувати</button>
+        <div class="header"><h1 id="t_username_title">👤 Получатель</h1></div>
+        <p id="t_username_desc">Введите <b>Telegram Username</b> на который нужно отправить товар.</p>
+        <input type="text" id="username-input" class="input-field" placeholder="Например: durov">
+        <div id="username-error" class="error-msg" id="t_err_user">Некорректный юзернейм! Только латиница и цифры.</div>
+        <button class="btn" id="t_btn_to_pay" onclick="processUsername()">К оплате</button>
+        <button class="btn btn-secondary t_btn_cancel" onclick="switchView('view-catalog')">🔙 Отмена</button>
     </div>
 
     <!-- ЕКРАН 4: ОПЛАТА -->
     <div id="view-payment" class="view">
-        <div class="header"><h1>💳 Оплата</h1></div>
+        <div class="header"><h1 id="t_pay_title">💳 Оплата</h1></div>
         <div class="summary-box">
-            📦 <b>Товар:</b> <span id="pay-item"></span><br>
-            👤 <b>Отримувач:</b> <span id="pay-user"></span>
+            📦 <b id="t_pay_item">Товар:</b> <span id="pay-item"></span><br>
+            👤 <b id="t_pay_user">Получатель:</b> <span id="pay-user"></span>
         </div>
-        <p style="text-align: center; margin-bottom: 10px;">Перекажіть рівно <b><span id="pay-price"></span> грн</b> на цю картку:</p>
+        <p style="text-align: center; margin-bottom: 10px;" id="t_pay_desc">Переведите ровно <b><span id="pay-price"></span> грн</b> на эту карту:</p>
         
         <div class="card-box">
-            <div style="font-size: 14px; opacity: 0.8;">Номер картки</div>
+            <div style="font-size: 14px; opacity: 0.8;" id="t_card_lbl">Номер карты</div>
             <div class="card-number" id="card-number-display">0000 0000 0000 0000</div>
             <div style="font-size: 14px; opacity: 0.8;">chprrshop</div>
         </div>
 
-        <!-- НОВЕ ПОПЕРЕДЖЕННЯ ПРО КОМІСІЮ -->
-        <div class="commission-alert">
-            ⚠️ Увага: комісію за переказ сплачує покупець!
-        </div>
-
-        <p style="font-size: 13px; text-align: center; color: var(--tg-theme-hint-color, #888);">Оплатіть у своєму банку, а потім натисніть кнопку нижче, щоб надіслати нам скріншот чека.</p>
+        <div class="commission-alert" id="t_alert_comm">⚠️ Внимание: комиссию за перевод оплачивает покупатель.</div>
+        <p style="font-size: 13px; text-align: center; color: var(--tg-theme-hint-color, #888);" id="t_pay_hint">Оплатите в своем банке, а затем нажмите кнопку ниже, чтобы отправить нам скриншот чека.</p>
         
-        <button class="btn" onclick="submitFinalOrder()">✅ Я оплатив (Надіслати чек)</button>
-        <button class="btn btn-secondary" onclick="switchView('view-username')">🔙 Змінити дані</button>
+        <button class="btn" id="t_btn_paid" onclick="submitFinalOrder()">✅ Я оплатил (Отправить чек)</button>
+        <button class="btn btn-secondary t_btn_change" onclick="switchView('view-username')">🔙 Изменить данные</button>
     </div>
 
     <script>
@@ -111,6 +112,72 @@
         document.getElementById('card-number-display').innerText = dynamicCard;
 
         let order = { action: '', value: '', price: 0, label: '', username: '' };
+        let currentLang = 'ru';
+
+        const T = {
+            ru: {
+                desc: "Быстрая покупка Stars и Premium",
+                btn_channel: "📢 Наш Телеграм канал", btn_reviews: "💬 Отзывы покупателей", btn_terms: "📋 Условия покупки",
+                custom_stars: "Ввести свое количество", from_50: "От 50 звезд (курс 0.8)", buy: "Купить", choose: "Выбрать",
+                custom_title: "⭐️ Свое количество", custom_desc: "Введите желаемое количество звезд (минимум 50). Стоимость рассчитается автоматически.",
+                err_min: "Минимальное количество — 50 звезд.", btn_next: "Далее", btn_back: "🔙 Назад",
+                username_title: "👤 Получатель", username_desc: "Введите <b>Telegram Username</b> на который нужно отправить товар.",
+                err_user: "Некорректный юзернейм! Только латиница и цифры.", btn_to_pay: "К оплате", btn_cancel: "🔙 Отмена",
+                pay_title: "💳 Оплата", pay_item: "Товар:", pay_user: "Получатель:", pay_desc: "Переведите ровно <b><span id='pay-price'></span> грн</b> на эту карту:",
+                card_lbl: "Номер карты", alert_comm: "⚠️ Внимание: комиссию за перевод оплачивает покупатель.",
+                pay_hint: "Оплатите в своем банке, а затем нажмите кнопку ниже, чтобы отправить нам скриншот чека.",
+                btn_paid: "✅ Я оплатил (Отправить чек)", btn_change: "🔙 Изменить данные",
+                send_err: "⚠️ Пожалуйста, откройте магазин через кнопку на клавиатуре снизу (возле поля ввода), иначе данные об оплате не отправятся!"
+            },
+            uk: {
+                desc: "Швидка покупка Stars та Premium",
+                btn_channel: "📢 Наш Телеграм канал", btn_reviews: "💬 Відгуки покупців", btn_terms: "📋 Умови покупки",
+                custom_stars: "Ввести свою кількість", from_50: "Від 50 зірок (курс 0.8)", buy: "Купити", choose: "Обрати",
+                custom_title: "⭐️ Своя кількість", custom_desc: "Введіть бажану кількість зірок (мінімум 50). Вартість розрахується автоматично.",
+                err_min: "Мінімальна кількість — 50 зірок.", btn_next: "Далі", btn_back: "🔙 Назад",
+                username_title: "👤 Отримувач", username_desc: "Введіть <b>Telegram Username</b> на який потрібно надіслати товар.",
+                err_user: "Некоректний юзернейм! Лише латиниця та цифри.", btn_to_pay: "До оплати", btn_cancel: "🔙 Скасувати",
+                pay_title: "💳 Оплата", pay_item: "Товар:", pay_user: "Отримувач:", pay_desc: "Перекажіть рівно <b><span id='pay-price'></span> грн</b> на цю картку:",
+                card_lbl: "Номер картки", alert_comm: "⚠️ Увага: комісію за переказ сплачує покупець.",
+                pay_hint: "Оплатіть у своєму банку, а потім натисніть кнопку нижче, щоб надіслати нам скріншот чека.",
+                btn_paid: "✅ Я оплатив (Надіслати чек)", btn_change: "🔙 Змінити дані",
+                send_err: "⚠️ Будь ласка, відкрийте магазин через кнопку на клавіатурі знизу (біля поля вводу), інакше дані про оплату не відправляться!"
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ru' ? 'uk' : 'ru';
+            document.getElementById('lang-indicator').innerText = currentLang.toUpperCase();
+            document.getElementById('t_desc').innerText = T[currentLang].desc;
+            document.getElementById('t_btn_channel').innerText = T[currentLang].btn_channel;
+            document.getElementById('t_btn_reviews').innerText = T[currentLang].btn_reviews;
+            document.getElementById('t_btn_terms').innerText = T[currentLang].btn_terms;
+            document.getElementById('t_custom_stars').innerText = T[currentLang].custom_stars;
+            document.getElementById('t_from_50').innerText = T[currentLang].from_50;
+            document.getElementById('t_choose').innerText = T[currentLang].choose;
+            document.querySelectorAll('.t_buy').forEach(el => el.innerText = T[currentLang].buy);
+            document.getElementById('t_custom_title').innerText = T[currentLang].custom_title;
+            document.getElementById('t_custom_desc').innerText = T[currentLang].custom_desc;
+            document.querySelector('.t_err_min').innerText = T[currentLang].err_min;
+            document.getElementById('t_btn_next').innerText = T[currentLang].btn_next;
+            document.querySelectorAll('.t_btn_back').forEach(el => el.innerText = T[currentLang].btn_back);
+            document.getElementById('t_username_title').innerText = T[currentLang].username_title;
+            document.getElementById('t_username_desc').innerHTML = T[currentLang].username_desc;
+            document.getElementById('username-error').innerText = T[currentLang].err_user;
+            document.getElementById('t_btn_to_pay').innerText = T[currentLang].btn_to_pay;
+            document.querySelectorAll('.t_btn_cancel').forEach(el => el.innerText = T[currentLang].btn_cancel);
+            document.getElementById('t_pay_title').innerText = T[currentLang].pay_title;
+            document.getElementById('t_pay_item').innerText = T[currentLang].pay_item;
+            document.getElementById('t_pay_user').innerText = T[currentLang].pay_user;
+            document.getElementById('t_pay_desc').innerHTML = T[currentLang].pay_desc;
+            document.getElementById('t_card_lbl').innerText = T[currentLang].card_lbl;
+            document.getElementById('t_alert_comm').innerText = T[currentLang].alert_comm;
+            document.getElementById('t_pay_hint').innerText = T[currentLang].pay_hint;
+            document.getElementById('t_btn_paid').innerText = T[currentLang].btn_paid;
+            document.querySelector('.t_btn_change').innerText = T[currentLang].btn_change;
+            
+            if(order.price > 0) document.getElementById('pay-price').innerText = order.price;
+        }
 
         function switchView(viewId) {
             document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
@@ -126,10 +193,7 @@
 
         function processCustomStars() {
             const amount = parseInt(document.getElementById('custom-amount-input').value);
-            if (isNaN(amount) || amount < 50) {
-                document.getElementById('custom-error').style.display = 'block';
-                return;
-            }
+            if (isNaN(amount) || amount < 50) { document.getElementById('custom-error').style.display = 'block'; return; }
             document.getElementById('custom-error').style.display = 'none';
             const price = Math.round((amount * 0.8) * 100) / 100;
             startOrder('stars', amount, price, `${amount} Зірок`);
@@ -138,10 +202,7 @@
         function processUsername() {
             let uname = document.getElementById('username-input').value.trim().replace('@', '');
             const regex = /^[a-zA-Z0-9_]+$/;
-            if (!regex.test(uname) || uname.length === 0) {
-                document.getElementById('username-error').style.display = 'block';
-                return;
-            }
+            if (!regex.test(uname) || uname.length === 0) { document.getElementById('username-error').style.display = 'block'; return; }
             document.getElementById('username-error').style.display = 'none';
             order.username = uname;
             
@@ -153,6 +214,13 @@
 
         function submitFinalOrder() {
             tg.sendData(JSON.stringify(order));
+            
+            // Якщо сайт відкрито неправильно (через Inline), метод sendData не спрацює і сайт не закриється.
+            // Тоді через півсекунди ми покажемо помилку і закриємо його примусово.
+            setTimeout(() => {
+                alert(T[currentLang].send_err);
+                tg.close();
+            }, 500);
         }
     </script>
 </body>
